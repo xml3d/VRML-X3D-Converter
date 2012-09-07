@@ -1,0 +1,28 @@
+#VRML V2.0 utf8
+# From VRML source book
+Group {
+    children [
+        Shape {
+            appearance DEF Brown Appearance {
+                material Material {
+                    diffuseColor 0.6 0.4 0.0
+                }
+            }
+            geometry Cylinder {
+                height 2.0
+                radius 2.0
+            }
+        },
+        Transform {
+            translation 0.0 2.0 0.0
+            children Shape {
+                appearance USE Brown
+                geometry Cone {
+                    height 2.0
+                    bottomRadius 2.5
+                }
+            }
+        }
+    ]
+}
+

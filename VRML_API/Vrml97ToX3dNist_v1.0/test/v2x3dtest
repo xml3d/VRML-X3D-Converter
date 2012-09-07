@@ -1,0 +1,8 @@
+#!/bin/sh
+
+CLASSPATH=../Vrml97ToX3dNist.jar:"$CLASSPATH"
+export CLASSPATH
+
+set -x
+java iicm.vrml.vrml2x3d.vrml2x3d $*
+

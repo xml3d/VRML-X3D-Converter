@@ -1,0 +1,52 @@
+
+	   The translator Vrml97ToX3dNist (Version 1.0) updated 5/04/2002
+          ----------------------------------------------------------------
+
+		by Qiming Wang
+		Visualization and Usability Group
+		Information Technology Lab.
+		NIST
+
+
+This is a software to tranlate vrml97 file to x3d file. The translation is
+based on the specification of "x3d-3.0.dtd".
+
+After extracting the Vrml97Tox3dNist.tar, you will have a Vrml97ToX3dNist.jar, 
+a Makefile (developed by Don Brutzman) and directories of "javasrc", "test", "class". 
+In "test" directory, there is a C shell "v2x3dtest" and a pc batch file "v2x3dtest.bat", 
+and some examples.  
+In "javasrc" directory, there are source java programs. 
+In "class" directory, there are class files.
+
+To compile and create .jar file, type "make all".
+To run the translator, simply go to the directory "test", and type:
+
+v2x3dtest vrml97file x3dfile (for Unix)
+v2x3dtest.bat vrml97file x3dfiel (for Windows)
+
+At present it is only work for local file.
+
+The changes of the version 1.0 (5/10/2004) by Qiming Wang:
+(1) The translation is based on "x3d-3.0.dtd"
+(2) Implemented the translation of <IS> / <connect> in "Script", "ProtoDeclare", "ProtoInstance".
+(3) Changed the usage of USE/DEF in "Script".
+
+The changes of the version 0.1 (03/21/2002) by Don Brutzmam:
+(1) Default head and meta tags created to encourage documentation, similar
+    to default newScene.x3d provided with X3D examples
+(2) Created new simple Makefile that compiles everything and creates .jar
+(3) Created batch file to accompany X3D distribution to perform translation
+(4) Makefile also creates javadoc showing packages and classes
+
+The changes of the version 0.1 (03/06/2002) by Don Brutzman:
+(1) Generate a proper header for the X3D file.
+(2) Rename vrml97Hint to accessType, remove xml:space=\"preserve\". 
+(3) Fixed the bug for test file "newshape.wrl".
+(4) The file extension .xml in "test" directory has been changed to .x3d.
+
+The changes of the version 0.1 (07/24/2001) :
+(1) Generate x3d-compact.dtd X3d file.
+(2) Fixed the bug of DEF/USE.
+(3) Moved all PROTO and EXTERNPROTO declarations to the begining.
+
+ 

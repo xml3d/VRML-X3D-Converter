@@ -1,0 +1,7 @@
+#!/bin/sh
+# dummy script for compilation right out of pwutils
+# mpichler, 19960806
+#
+
+cd ../../../..
+exec makeit

@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# mksrc
+# make IntArray.java, FloatArray.java, DoubleArray.java
+# out of Gen_Array.j
+# (must check whether StringArray offers any advantages over Vector of Strings)
+# Copyright (c) 1996,97 IICM
+#
+# created: mpichler, 19960808
+# changed: mpichler, 19961001
+
+conv ()
+{
+# usage: conv ArrayName type
+  ArrayName=$1
+  type=$2
+
+  echo "writing $ArrayName.java"
+  if [ -f $ArrayName.java ]
+  then
+    chmod +w $ArrayName.java
+  fi
+  echo "//
+// !!! THIS FILE WAS AUTOMATICALLY GENERATED !!!
+// !!! DO NOT EDIT !!!
+//" > $ArrayName.java
+  sed -e "s/GenArray/$ArrayName/g" -e "s/DAT/$type/g" Gen_Array.j >> $ArrayName.java
+  chmod -w $ArrayName.java
+}
+
+conv IntArray int
+conv FloatArray float
+conv DoubleArray double
+conv CharArray char
+conv StringArray String

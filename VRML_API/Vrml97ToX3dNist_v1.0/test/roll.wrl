@@ -1,0 +1,209 @@
+#VRML V2.0 utf8
+Group {
+children [
+DEF cylinder Transform {
+translation 22.087 0.0 0.0
+rotation 0.0 0.0 0.0 0
+children DEF Column Shape {
+appearance Appearance {
+material Material { 
+diffuseColor   0.6 .56 .6
+}
+}
+geometry Cylinder {
+height 12.0
+radius 1.0
+}
+}
+},
+Transform {
+translation 19.724 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl1 Transform {
+children USE Column
+}
+},
+Transform {
+translation 17.362 0.0 0.
+children DEF cyl2 Transform {
+rotation 0.0 0.0 0.0 1.5707963
+children USE Column
+}
+},
+Transform {
+translation 15.00 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl3 Transform {
+children USE Column 
+}
+},
+Transform {
+translation 12.50 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl9 Transform {
+children USE Column 
+}
+},
+Transform {
+translation 10.00 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl4 Transform {
+children USE Column 
+}
+},
+Transform {
+translation 7.50 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl5 Transform {
+children USE Column 
+}
+},
+Transform {
+translation 5.0 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl6 Transform {
+children USE Column 
+}
+},
+Transform {
+translation 2.5 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl7 Transform {
+children USE Column 
+}
+},
+Transform {
+translation 0.0 0.0 0.
+rotation 0.0 0.0 0.0 1.5707963
+children DEF cyl8 Transform {
+children USE Column
+}
+},
+# OTHER SIDE
+
+Transform {
+translation -7.50  5.0 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls1 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  2.50 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls2 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  .098 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls3 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  -2.362 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls4 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  -5.0 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls5 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  -7.5 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls6 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  -10.00 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls7 Transform {
+children USE Column
+} 
+},
+Transform {
+translation -7.50 -12.50 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls8 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  -15.0 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls9 Transform {
+children USE Column 
+}
+},
+Transform {
+translation -7.50  -17.50 -.250 
+rotation 0.0 0.0 1.0 1.5707963
+children DEF cyls10 Transform {
+children USE Column 
+}
+},
+]
+}
+#cylinder 
+DEF Forever TimeSensor {
+    cycleInterval 6.0
+    loop TRUE
+    startTime 1.0
+    stopTime  0.0
+}
+DEF FullCircle OrientationInterpolator {
+    key [ 0.0, 0.5, 1.0 ]
+    keyValue [
+     0.0  1.0  0.0  0.0,
+     0.0  1.0  0.0  -3.14159,
+     0.0  1.0  0.0  -6.2831853, 
+    ]
+}
+DEF FullCircle1 OrientationInterpolator {
+    key [ 0.0, 0.5, 1.0 ]
+    keyValue [
+     0.0  1.0  0.0  0.0,
+     0.0  1.0  0.0  -3.14159,
+     0.0  1.0  0.0  -6.2831853, 
+    ]
+}
+
+ROUTE Forever.fraction_changed TO FullCircle.set_fraction
+ROUTE FullCircle.value_changed TO cylinder.set_rotation
+ROUTE FullCircle.value_changed TO cyl1.set_rotation
+ROUTE FullCircle.value_changed TO cyl2.set_rotation
+ROUTE FullCircle.value_changed TO cyl3.set_rotation
+ROUTE FullCircle.value_changed TO cyl4.set_rotation
+ROUTE FullCircle.value_changed TO cyl5.set_rotation
+ROUTE FullCircle.value_changed TO cyl6.set_rotation
+ROUTE FullCircle.value_changed TO cyl7.set_rotation
+ROUTE FullCircle.value_changed TO cyl8.set_rotation
+ROUTE FullCircle.value_changed TO cyl9.set_rotation
+ROUTE Forever.fraction_changed TO FullCircle1.set_fraction
+ROUTE FullCircle1.value_changed TO cyls1.set_rotation
+ROUTE FullCircle1.value_changed TO cyls2.set_rotation
+ROUTE FullCircle1.value_changed TO cyls3.set_rotation
+ROUTE FullCircle1.value_changed TO cyls4.set_rotation
+ROUTE FullCircle1.value_changed TO cyls5.set_rotation
+ROUTE FullCircle1.value_changed TO cyls6.set_rotation
+ROUTE FullCircle1.value_changed TO cyls7.set_rotation
+ROUTE FullCircle1.value_changed TO cyls8.set_rotation
+ROUTE FullCircle1.value_changed TO cyls9.set_rotation
+ROUTE FullCircle1.value_changed TO cyls10.set_rotation
+
+
+
+
+
+
+
+

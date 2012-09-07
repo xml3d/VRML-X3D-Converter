@@ -1,0 +1,6 @@
+		by Qiming Wang
+		Visualization and Usability Group
+		Information Technology Lab.
+		NIST
+		
+		for more information, please look into the readme file in the Vrml97ToX3dNist_v1.0 directory

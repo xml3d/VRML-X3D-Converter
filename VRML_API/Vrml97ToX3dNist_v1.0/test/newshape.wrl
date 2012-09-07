@@ -1,0 +1,52 @@
+#VRML V2.0 utf8
+
+PROTO New [
+	field SFFloat rad 1.0
+]
+{
+Shape {appearance Appearance {material Material {diffuseColor 1 0 0}}
+	geometry Sphere {radius IS rad}
+}
+}
+
+PROTO NewShape [
+	field SFFloat newHeight 1
+	field SFFloat newRadius 2
+	field SFNode  InitialAppearance Appearance {
+   		material Material {
+   			diffuseColor 0 1 0
+   		}
+	}
+] {
+Group {children [
+	DEF NEW New {rad IS newRadius}
+	Transform {translation 2 0 0 children
+		DEF ConstainedShape Shape {
+			appearance IS InitialAppearance
+			geometry DEF ConstainedCylinder Cylinder {
+    				height IS newHeight
+    				radius IS newRadius
+    			}
+		}
+	}
+	Transform {translation -2 0 0 children
+		DEF ConstainedShape1 Shape {
+			appearance IS InitialAppearance
+			geometry DEF ConstainedCylinder1 Cylinder {
+    			height IS newHeight
+    			radius IS newRadius
+    			}
+		}	
+	}
+]}
+}
+
+DEF A	NewShape {
+	newHeight 2
+	newRadius 1
+	InitialAppearance Appearance {
+		material Material {
+			diffuseColor 1 0 0
+		}
+	}
+}

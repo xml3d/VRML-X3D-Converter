@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# jc - shorthand to call java compiler
+# with appropriate CLASSPATH and arguments
+
+cd ../../..
+CLASSPATH=`pwd`/classes:`pwd`/javasrc:"$CLASSPATH"
+export CLASSPATH
+
+for f
+do
+  set -x
+  javac -d classes javasrc/iicm/ge3d/$f
+done

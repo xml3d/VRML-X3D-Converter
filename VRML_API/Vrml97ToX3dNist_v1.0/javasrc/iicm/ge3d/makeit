@@ -1,0 +1,7 @@
+#!/bin/sh
+# dummy script for compilation right out of viewer
+# mpichler, 19960923
+#
+
+cd ../../../..
+exec makeit

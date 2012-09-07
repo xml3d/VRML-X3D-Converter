@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE X3D PUBLIC "ISO//Web3D//DTD X3D 3.0//EN"   "http://www.web3d.org/specifications/x3d-3.0.dtd">
+<X3D profile="Full">
+  <head>
+    <meta name="filename" content="newshape.x3d"/>
+    <meta name="description" content="*enter description here, short-sentence summaries preferred*"/>
+    <meta name="author" content="*enter name of original author here*"/>
+    <meta name="translator" content="*if manually translating VRML-to-X3D, enter name of person translating here*"/>
+    <meta name="created" content="*enter date of initial version here*"/>
+    <meta name="translated" content="03 June 2004"/>
+    <meta name="revised"    content="03 June 2004"/>
+    <meta name="version" content="*enter version here*"/>
+    <meta name="reference" content="*enter reference citation or relative/online url here*"/>
+    <meta name="reference" content="*enter additional url/bibliographic reference information here*"/>
+    <meta name="copyright" content="*enter copyright information here* Example:  Copyright (c) Web3D Consortium Inc. 2002"/>
+    <meta name="drawing" content="*enter drawing filename/url here*"/>
+    <meta name="image" content="*enter image filename/url here*"/>
+    <meta name="movie" content="*enter movie filename/url here*"/>
+    <meta name="photo" content="*enter photo filename/url here*"/>
+    <meta name="keywords" content="*enter keywords here*"/>
+    <meta name="url" content="*enter online url address for this file here*"/>
+    <meta name="generator" content="Vrml97ToX3dNist, http://ovrt.nist.gov/v2_x3d.html"/>
+  </head>
+  <Scene>
+  <ProtoDeclare name="New">
+    <ProtoInterface>
+      <field  name="rad" type="SFFloat" value="1.0" accessType="initializeOnly"/>
+    </ProtoInterface>
+    <ProtoBody>
+          <Shape >
+              <Appearance >
+                  <Material  diffuseColor="1.0 0.0 0.0"/>
+              </Appearance>
+              <Sphere >
+                  <IS>
+                    <connect nodeField="radius" protoField="rad"/>
+                  </IS>
+              </Sphere>
+          </Shape>
+    </ProtoBody>
+  </ProtoDeclare>
+  <ProtoDeclare name="NewShape">
+    <ProtoInterface>
+      <field  name="newRadius" type="SFFloat" value="2.0" accessType="initializeOnly"/>
+      <field  name="newHeight" type="SFFloat" value="1.0" accessType="initializeOnly"/>
+      <field  name="InitialAppearance" type="SFNode" accessType="initializeOnly">
+      <Appearance >
+          <Material  diffuseColor="0.0 1.0 0.0"/>
+      </Appearance>
+      </field>
+    </ProtoInterface>
+    <ProtoBody>
+          <Group >
+              <ProtoInstance name="New" DEF="NEW">
+                <fieldValue name="rad" value="1.0"/>
+                <IS>
+                  <connect nodeField="rad" protoField="newRadius"/>
+                </IS>
+              </ProtoInstance>
+              <Transform  translation="2.0 0.0 0.0">
+                  <Shape  DEF="ConstainedShape" >
+                      <IS>
+                        <connect nodeField="appearance" protoField="InitialAppearance"/>
+                      </IS>
+                      <Cylinder  DEF="ConstainedCylinder" >
+                          <IS>
+                            <connect nodeField="radius" protoField="newRadius"/>
+                            <connect nodeField="height" protoField="newHeight"/>
+                          </IS>
+                      </Cylinder>
+                  </Shape>
+              </Transform>
+              <Transform  translation="-2.0 0.0 0.0">
+                  <Shape  DEF="ConstainedShape1" >
+                      <IS>
+                        <connect nodeField="appearance" protoField="InitialAppearance"/>
+                      </IS>
+                      <Cylinder  DEF="ConstainedCylinder1" >
+                          <IS>
+                            <connect nodeField="radius" protoField="newRadius"/>
+                            <connect nodeField="height" protoField="newHeight"/>
+                          </IS>
+                      </Cylinder>
+                  </Shape>
+              </Transform>
+          </Group>
+    </ProtoBody>
+  </ProtoDeclare>
+  <ProtoInstance name="NewShape" DEF="A">
+    <fieldValue name="newHeight" value="2.0"/>
+    <fieldValue name="newRadius" value="1.0"/>
+    <fieldValue name="InitialAppearance">
+      <Appearance >
+          <Material  diffuseColor="1.0 0.0 0.0"/>
+      </Appearance>
+    </fieldValue>
+  </ProtoInstance>
+  </Scene>
+
+</X3D>

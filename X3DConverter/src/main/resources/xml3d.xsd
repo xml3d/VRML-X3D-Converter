@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xsd:schema xmlns:xml3d="http://www.xml3d.org/2009/xml3d" xmlns:dt="http://www.w3.org/2009/xml3d_datatypes" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:org.xml3d.rtsg.rtsg2.mapping="http:///org/xml3d/rtsg/RTSG2Mapping" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ecore:nsPrefix="xml3d" ecore:package="xml3d" targetNamespace="http://www.xml3d.org/2009/xml3d">
+  <xsd:annotation>
+    <xsd:documentation>XML3D Specification</xsd:documentation>
+  </xsd:annotation>
+  <xsd:element ecore:ignore="true" name="xml3d" type="xml3d:xml3d"/>
+  <xsd:element ecore:ignore="true" name="defs" type="xml3d:defs"/>
+  <xsd:element ecore:ignore="true" name="group" type="xml3d:group"/>
+  <xsd:element ecore:ignore="true" name="mesh" type="xml3d:mesh"/>
+  <xsd:element ecore:ignore="true" name="transform" type="xml3d:transform"/>
+  <xsd:element ecore:ignore="true" name="bind" type="xml3d:bind"/>
+  <xsd:element ecore:ignore="true" name="shader" type="xml3d:shader"/>
+  <xsd:element ecore:ignore="true" name="light" type="xml3d:light"/>
+  <xsd:element ecore:ignore="true" name="lightshader" type="xml3d:lightshader"/>
+  <xsd:element ecore:ignore="true" name="script" type="xml3d:script"/>
+  <xsd:element ecore:ignore="true" name="float" type="xml3d:float"/>
+  <xsd:element ecore:ignore="true" name="float2" type="xml3d:float2"/>
+  <xsd:element ecore:ignore="true" name="float3" type="xml3d:float3"/>
+  <xsd:element ecore:ignore="true" name="float4" type="xml3d:float4"/>
+  <xsd:element ecore:ignore="true" name="int" type="xml3d:int"/>
+  <xsd:element ecore:ignore="true" name="bool" type="xml3d:bool"/>
+  <xsd:element ecore:ignore="true" name="texture" type="xml3d:texture"/>
+  <xsd:element ecore:ignore="true" name="img" type="xml3d:img"/>
+  <xsd:element ecore:ignore="true" name="use" type="xml3d:use"/>
+  <xsd:element ecore:ignore="true" name="view" type="xml3d:view"/>
+  <xsd:complexType ecore:implements="xml3d:EventAttributes" ecore:name="Xml3dType" name="xml3d">
+    <xsd:annotation>
+      <xsd:appinfo ecore:key="operations" source="http://www.eclipse.org/emf/2002/Ecore">
+        <operation name="createXML3DVec3" type="dt:XML3DVec3">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Creates a new instance of XML3DVec3f data type with x=y=z=0.0.</detail>
+          </annotation>
+        </operation>
+        <operation name="createXML3DRotation" type="dt:XML3DRotation">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Creates a new instance of XML3DRotation with axis = (0, 0, 1) and angle = 0.0.</detail>
+          </annotation>
+        </operation>
+        <operation name="createXML3DMatrix" type="dt:XML3DMatrix">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Creates a new instance of XML3DMatrix. This matrix is the identity matrix.</detail>
+          </annotation>
+        </operation>
+      </xsd:appinfo>
+      <xsd:documentation>The xml3d element is the root of a XML3D scene and also describes the rendering area this scene is displayed in.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBaseType">
+        <xsd:choice maxOccurs="unbounded" minOccurs="0" >
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="xml3d:view"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="xml3d:defs"/>
+          <xsd:group maxOccurs="unbounded" minOccurs="0" ref="xml3d:XML3DGraphTypeGroup"/>
+        </xsd:choice>
+        <xsd:attribute default="600" ecore:unsettable="false" name="height" type="xsd:int">
+          <xsd:annotation>
+            <xsd:documentation>The height of the xml3d canvas in pixels.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="800" ecore:unsettable="false" name="width" type="xsd:int">
+          <xsd:annotation>
+            <xsd:documentation>The width of the xml3d canvas in pixels.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute ecore:reference="xml3d:view" name="activeView" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>Reference to the active view element.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attributeGroup ref="xml3d:EventAttributes"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="XML3DGraphTypeGroup">
+    <xsd:choice>
+      <xsd:element ref="xml3d:group"/>
+      <xsd:element ref="xml3d:mesh"/>
+      <xsd:element ref="xml3d:light"/>
+      <xsd:element ref="xml3d:use"/>
+    </xsd:choice>
+  </xsd:group>
+  <xsd:complexType ecore:name="DefsType" name="defs">
+    <xsd:annotation>
+      <xsd:documentation>The 'defs' element is a container element for referenced elements.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBaseType">
+        <xsd:sequence>
+          <xsd:group maxOccurs="unbounded" minOccurs="0" ref="xml3d:XML3DReferenceableTypeGroup"/>
+        </xsd:sequence>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="XML3DReferenceableTypeGroup">
+    <xsd:choice>
+      <xsd:element ref="xml3d:group"/>
+      <xsd:element ref="xml3d:mesh"/>
+      <xsd:element ref="xml3d:transform"/>
+      <xsd:element ref="xml3d:shader"/>
+      <xsd:element ref="xml3d:light"/>
+      <xsd:element ref="xml3d:lightshader"/>
+      <xsd:element ref="xml3d:script"/>
+      <xsd:element ref="xml3d:img"/>
+      <xsd:element ref="xml3d:use"/>
+      <xsd:element ref="xml3d:view"/>
+    </xsd:choice>
+  </xsd:group>
+  <xsd:complexType ecore:name="GroupType" name="group">
+    <xsd:annotation>
+      <xsd:appinfo ecore:key="operations" source="http://www.eclipse.org/emf/2002/Ecore">
+        <operation name="getLocalMatrix" type="dt:XML3DMatrix">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Matrix of local coordinate system defined by transform reference and CSS transformation. Returns a new matrix. Changing this matrix will not change the group's transformation.</detail>
+          </annotation>
+        </operation>
+      </xsd:appinfo>
+      <xsd:documentation>Grouping node with transformation capabilities and surface shader assignment.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DGraphType">
+        <xsd:sequence>
+          <xsd:group maxOccurs="unbounded" minOccurs="0" ref="xml3d:XML3DGraphTypeGroup"/>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="xml3d:defs"/>
+        </xsd:sequence>
+        <xsd:attribute ecore:reference="xml3d:XML3DTransformProviderType" name="transform" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>Reference to an element that can provide a 3D transformation (i.e. transform)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute ecore:reference="xml3d:XML3DSurfaceShaderProviderType" name="shader" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>Reference to an element that can provide a surface shader (i.e. shader)</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="MeshType" name="mesh">
+    <xsd:annotation>
+      <xsd:documentation>Geometry node that describes the shape of a polyhedral object in 3D.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DGeometryType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="xml3d:bind"/>
+        </xsd:sequence>
+        <xsd:attribute default="triangles" ecore:changeable="false" ecore:unsettable="false" name="type" type="xml3d:MeshTypes">
+          <xsd:annotation>
+            <xsd:documentation>The type of geometric primitive descriped by this mesh element.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="TransformType" name="transform">
+    <xsd:annotation>
+      <xsd:documentation>The transform element is a general geometric transformation element, that allows to define a transformation matrix using 5 well understandable entities.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DTransformProviderType">
+        <xsd:attribute default="0 0 0" ecore:unsettable="false" name="translation" type="xml3d:XML3DVec3">
+          <xsd:annotation>
+            <xsd:documentation>The translation part of the transformation.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="1 1 1" ecore:unsettable="false" name="scale" type="xml3d:XML3DVec3">
+          <xsd:annotation>
+            <xsd:documentation>The scaling part of the transformation. </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="0 0 1 0" ecore:unsettable="false" name="rotation" type="xml3d:XML3DRotation">
+          <xsd:annotation>
+            <xsd:documentation>The rotation part of the transformation.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="0 0 0" ecore:unsettable="false" name="center" type="xml3d:XML3DVec3">
+          <xsd:annotation>
+            <xsd:documentation>Origin for scale and rotation.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="0 0 1 0" ecore:unsettable="false" name="scaleOrientation" type="xml3d:XML3DRotation">
+          <xsd:annotation>
+            <xsd:documentation>Rotational orientation for scale.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="BindType" name="bind">
+    <xsd:annotation>
+      <xsd:documentation>The bind element binds a static or computed data element to it's parent node with a given name and semantic.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBaseType">
+        <xsd:sequence>
+          <xsd:group ref="xml3d:XML3DBindableTypeGroup"/>
+        </xsd:sequence>
+        <xsd:attribute default="" ecore:unsettable="false" name="name" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>The name to bind the data field to. This could be for example a shader field.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="" ecore:unsettable="false" name="semantic" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Certain functionalities in the graph as well as some shader systems need to know about how the bound data field is interpreted. The semantic gives a hint about this.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="XML3DBindableTypeGroup">
+    <xsd:choice>
+      <xsd:element ref="xml3d:float"/>
+      <xsd:element ref="xml3d:float2"/>
+      <xsd:element ref="xml3d:float3"/>
+      <xsd:element ref="xml3d:float4"/>
+      <xsd:element ref="xml3d:int"/>
+      <xsd:element ref="xml3d:bool"/>
+      <xsd:element ref="xml3d:texture"/>
+    </xsd:choice>
+  </xsd:group>
+  <xsd:complexType ecore:name="ShaderType" name="shader">
+    <xsd:annotation>
+      <xsd:documentation>The shader element describes a surface shader for a geometry.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DSurfaceShaderProviderType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="LightType" name="light">
+    <xsd:annotation>
+      <xsd:documentation>The light element defines a light in the scene graph.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DGraphType">
+        <xsd:attribute ecore:reference="xml3d:XML3DLightShaderProviderType" name="shader" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>Reference to a lightshader element.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="false" ecore:unsettable="false" name="global" type="xsd:boolean">
+          <xsd:annotation>
+            <xsd:documentation>If 'false', the light source will only light the children of it's parent node.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="1" ecore:unsettable="false" name="intensity" type="xsd:float">
+          <xsd:annotation>
+            <xsd:documentation>Will be multiplied with the light source contribution. It is possible to 'dim' the light using values below 1 or to brighten it up using values above 1.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="LightShaderType" name="lightshader">
+    <xsd:annotation>
+      <xsd:documentation>The light shader element describes a light source.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DLightShaderProviderType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="ScriptType" mixed="true" name="script">
+    <xsd:annotation>
+      <xsd:documentation>The script element places a script within a document.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DReferenceableType">
+        <xsd:attribute default="" ecore:unsettable="false" name="src" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>This attribute specifies the location of an external script.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="" ecore:unsettable="false" name="type" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>This attribute specifies the scripting language of the element's contents. The scripting language is specified as a content type (e.g., "text/javascript"). Authors must supply a value for this attribute. There is no default value for this attribute.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="FloatArrayType" mixed="true" name="float">
+    <xsd:annotation>
+      <xsd:documentation>The text nodes of the float element specify an array of float values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBindableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="Float2ArrayType" mixed="true" name="float2">
+    <xsd:annotation>
+      <xsd:documentation>The text nodes of the float2 element specify an array of 2-tuples of floats.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBindableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="Float3ArrayType" mixed="true" name="float3">
+    <xsd:annotation>
+      <xsd:documentation>The text nodes of the float3 element specify an array of 3-tuples of floats.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBindableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="Float4ArrayType" mixed="true" name="float4">
+    <xsd:annotation>
+      <xsd:documentation>The text nodes of the float4 element specify an array of 4-tuples of floats.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBindableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="IntArrayType" mixed="true" name="int">
+    <xsd:annotation>
+      <xsd:documentation>The text nodes of the int element specify an array of integer values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBindableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="BoolArrayType" mixed="true" name="bool">
+    <xsd:annotation>
+      <xsd:documentation>The text nodes of the bool element specify an array of boolean values.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBindableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="TextureType" name="texture">
+    <xsd:annotation>
+      <xsd:documentation>The texture element is used to set some states on how to apply a texture to a shape. </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBindableType">
+        <xsd:sequence>
+          <xsd:group minOccurs="0" ref="xml3d:XML3DImageDataProviderTypeGroup"/>
+        </xsd:sequence>
+        <xsd:attribute default="2D" ecore:unsettable="false" name="type" type="xml3d:TextureTypes">
+          <xsd:annotation>
+            <xsd:documentation>Set the dimensions of the texture.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="linear" ecore:unsettable="false" name="filterMin" type="xml3d:FilterTypes">
+          <xsd:annotation>
+            <xsd:documentation>Specifies how to apply the texture if the area to be textured has fewer pixels than the texture.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="linear" ecore:unsettable="false" name="filterMag" type="xml3d:FilterTypes">
+          <xsd:annotation>
+            <xsd:documentation>Specifies how to apply the texture if the area to be textured contains more pixels than the texture.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="nearest" ecore:unsettable="false" name="filterMip" type="xml3d:FilterTypes">
+          <xsd:annotation>
+            <xsd:documentation>Specifies what mipmap level to use, when a minification filter is required for the texture.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="repeat" ecore:unsettable="false" name="wrapS" type="xml3d:WrapTypes">
+          <xsd:annotation>
+            <xsd:documentation>Specifies what happens when the texture coordinates fall outside of the 0.0 to 1.0 range in s direction.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="repeat" ecore:unsettable="false" name="wrapT" type="xml3d:WrapTypes">
+          <xsd:annotation>
+            <xsd:documentation>Specifies what happens when the texture coordinates fall outside of the 0.0 to 1.0 range in t direction.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="repeat" ecore:unsettable="false" name="wrapU" type="xml3d:WrapTypes">
+          <xsd:annotation>
+            <xsd:documentation>Specifies what happens when the texture coordinates fall outside of the 0.0 to 1.0 range in u direction.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="" ecore:unsettable="false" name="borderColor" type="xsd:string">
+          <xsd:annotation>
+            <xsd:documentation>Specifies what color to use, if wrapping mode is 'border' and texture coordinates fall outside of the 0.0 to 1.0 range.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:group name="XML3DImageDataProviderTypeGroup">
+    <xsd:choice>
+      <xsd:element ref="xml3d:img"/>
+    </xsd:choice>
+  </xsd:group>
+  <xsd:complexType ecore:name="ImageType" name="img">
+    <xsd:annotation>
+      <xsd:documentation>The img element is a source for images from a file resource.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DImageDataProviderType">
+        <xsd:attribute default="" ecore:unsettable="false" name="src" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>This attribute specifies the location of the image resource. Examples of widely recognized image formats include GIF, JPEG, and PNG.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="UseType" name="use" org.xml3d.rtsg.rtsg2.mapping:name="XML3DGroupElement">
+    <xsd:annotation>
+      <xsd:documentation>The use element is used to reference objects in other locations via URI.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DGraphType">
+        <xsd:attribute ecore:reference="xml3d:XML3DGeometryType" name="href" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>Reference to another object as URI. TODO: Should be of type "AnyURI"</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType ecore:name="ViewType" name="view">
+    <xsd:annotation>
+      <xsd:appinfo ecore:key="operations" source="http://www.eclipse.org/emf/2002/Ecore">
+        <operation name="setDirection">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Rotates the view so that it's orientation points towards direction. Position of the view is not modified. The view is rotated so that the upVector is preserved.</detail>
+          </annotation>
+          <parameter name="direction" type="dt:XML3DVec3"/>
+        </operation>
+        <operation name="setUpVector">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Modifies the orientation, so that the default up vector (0, 1, 0) rotated by the orientation becomes the view's new up vector. Position of the view is not modified.</detail>
+          </annotation>
+          <parameter name="up" type="dt:XML3DVec3"/>
+        </operation>
+        <operation name="lookAt">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Modifies the orientation, so that the direction of the view points to the point specified by the target parameter. The position of the view is not modfied.</detail>
+          </annotation>
+          <parameter name="target" type="dt:XML3DVec3"/>
+        </operation>
+        <operation name="getDirection" type="dt:XML3DVec3">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Get the direction of the view defined by the orientation attribute. The result is the orientation multiplied with the default direction (0, 0, -1). Creates a new vector instance, the element is not changed.</detail>
+          </annotation>
+        </operation>
+        <operation name="getUpVector" type="dt:XML3DVec3">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Get the up vector of the view defined by the orientation attribute. The result is the orientation multiplied with the default up vector (0, 1, 0). Creates a new vector instance, the element is not changed.</detail>
+          </annotation>
+        </operation>
+        <operation name="getViewMatrix" type="dt:XML3DMatrix">
+          <annotation source="http://www.eclipse.org/emf/2002/GenModel">
+            <detail key="documentation">Matrix of view coordinate system defined by orientation and position attribute of the element.</detail>
+          </annotation>
+        </operation>
+      </xsd:appinfo>
+      <xsd:documentation>The view node interface represents a camera in 3D world coordinates. </xsd:documentation>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DReferenceableType">
+        <xsd:attribute default="0 0 0" ecore:unsettable="false" name="position" type="xml3d:XML3DVec3">
+          <xsd:annotation>
+            <xsd:documentation>The position of the camera in local coordinates.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="0 0 1 0" ecore:unsettable="false" name="orientation" type="xml3d:XML3DRotation">
+          <xsd:annotation>
+            <xsd:documentation>The orientation of the camera relative to the default orientation.
+In the default position and orientation, the viewer is on the Z-axis looking down the -Z-axis toward the origin with +X to the right and +Y straight up.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attribute default="0.78539816339744828" ecore:unsettable="false" name="fieldOfView" type="xsd:float">
+          <xsd:annotation>
+            <xsd:documentation>The fieldOfView field specifies a preferred minimum viewing angle from this viewpoint in radians. A small field of view roughly corresponds to a telephoto lens; a large field of view roughly corresponds to a wide-angle lens. The field of view shall be greater than zero and smaller than pi. The value of fieldOfView represents the minimum viewing angle in any direction axis perpendicular to the view. </xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:attributeGroup name="commonAttributes">
+    <xsd:attribute name="id" type="xsd:ID"/>
+    <xsd:attribute name="class" type="xsd:NMTOKENS"/>
+    <xsd:attribute name="onclick" type="xml3d:Script"/>
+    <xsd:attribute name="ondblclick" type="xml3d:Script"/>
+    <xsd:attribute name="onmousedown" type="xml3d:Script"/>
+    <xsd:attribute name="onmouseup" type="xml3d:Script"/>
+    <xsd:attribute name="onmouseover" type="xml3d:Script"/>
+    <xsd:attribute name="onmousemove" type="xml3d:Script"/>
+    <xsd:attribute name="onmouseout" type="xml3d:Script"/>
+    <xsd:attribute name="onkeypress" type="xml3d:Script"/>
+    <xsd:attribute name="onkeydown" type="xml3d:Script"/>
+    <xsd:attribute name="onkeyup" type="xml3d:Script"/>
+    <xsd:attribute name="style" type="xsd:string"/>
+  </xsd:attributeGroup>
+  <xsd:attributeGroup name="CoreAttributes">
+    <xsd:attribute name="id" type="xsd:ID"/>
+    <xsd:attribute name="class" type="xsd:NMTOKENS"/>
+  </xsd:attributeGroup>
+  <xsd:attributeGroup name="StyleAttributes">
+    <xsd:attribute name="style" type="xsd:string"/>
+  </xsd:attributeGroup>
+  <xsd:attributeGroup name="EventAttributes">
+    <xsd:attribute name="onclick" type="xml3d:Script"/>
+    <xsd:attribute name="ondblclick" type="xml3d:Script"/>
+    <xsd:attribute name="onmousedown" type="xml3d:Script"/>
+    <xsd:attribute name="onmouseup" type="xml3d:Script"/>
+    <xsd:attribute name="onmouseover" type="xml3d:Script"/>
+    <xsd:attribute name="onmousemove" type="xml3d:Script"/>
+    <xsd:attribute name="onmouseout" type="xml3d:Script"/>
+    <xsd:attribute name="onkeypress" type="xml3d:Script"/>
+    <xsd:attribute name="onkeydown" type="xml3d:Script"/>
+    <xsd:attribute name="onkeyup" type="xml3d:Script"/>
+  </xsd:attributeGroup>
+  <xsd:complexType abstract="true" ecore:implements="xml3d:StyleAttributes" name="XML3DBaseType">
+    <xsd:complexContent>
+      <xsd:restriction base="xsd:anyType">
+        <xsd:attributeGroup ref="xml3d:CoreAttributes"/>
+        <xsd:attributeGroup ref="xml3d:StyleAttributes"/>
+      </xsd:restriction>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DReferenceableType">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBaseType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" ecore:implements="xml3d:EventAttributes" name="XML3DGraphType">
+    <xsd:annotation>
+      <xsd:appinfo ecore:key="operations" source="http://www.eclipse.org/emf/2002/Ecore">
+        <operation name="getWorldMatrix" type="dt:XML3DMatrix"/>
+      </xsd:appinfo>
+    </xsd:annotation>
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DReferenceableType">
+        <xsd:attribute default="true" ecore:unsettable="false" name="visible" type="xsd:boolean">
+          <xsd:annotation>
+            <xsd:documentation>If 'false', the element and all it's children are not taken into account during rendering. This flag does not affect children referenced from other parts of the scene graph.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+        <xsd:attributeGroup ref="xml3d:EventAttributes"/>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DTransformProviderType">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DReferenceableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DSurfaceShaderProviderType">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DShaderProviderType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DLightShaderProviderType">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DShaderProviderType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DShaderProviderType">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DReferenceableType">
+        <xsd:sequence>
+          <xsd:element maxOccurs="unbounded" minOccurs="0" ref="xml3d:bind"/>
+        </xsd:sequence>
+        <xsd:attribute ecore:reference="xml3d:script" name="script" type="xsd:anyURI">
+          <xsd:annotation>
+            <xsd:documentation>Reference to the shader script as URI. Can be a location (URL) or one of the pre-defined shaders as URN. TODO: Should be of type "AnyURI"</xsd:documentation>
+          </xsd:annotation>
+        </xsd:attribute>
+      </xsd:extension>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DBindableType">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DBaseType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DGeometryType">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DGraphType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:complexType abstract="true" name="XML3DImageDataProviderType" org.xml3d.rtsg.rtsg2.mapping:sgFields="  SFImage [in,out] image 0 0 0">
+    <xsd:complexContent>
+      <xsd:extension base="xml3d:XML3DReferenceableType"/>
+    </xsd:complexContent>
+  </xsd:complexType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" ecore:name="MFInt32" name="IntArray">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" ecore:name="MFBool" name="BoolArray">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="Script">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.Object" ecore:name="MFFloat" name="FloatArray">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" ecore:name="MFVec3f" name="Float3Array">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" ecore:name="MFVec4f" name="Float4Array">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" ecore:name="MFVec2f" name="Float2Array">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" name="XML3DVec3">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" name="XML3DMatrix">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType ecore:instanceClass="java.lang.String" name="XML3DRotation">
+    <xsd:restriction base="xsd:string"/>
+  </xsd:simpleType>
+  <xsd:simpleType name="MeshTypes">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="triangles"/>
+      <xsd:enumeration value="triangleStrips"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="TextureTypes">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration ecore:name="T_2D" value="2D"/>
+      <xsd:enumeration ecore:name="T_1D" value="1D"/>
+      <xsd:enumeration ecore:name="T_3D" value="3D"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="FilterTypes">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="none"/>
+      <xsd:enumeration value="nearest"/>
+      <xsd:enumeration value="linear"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  <xsd:simpleType name="WrapTypes">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="clamp"/>
+      <xsd:enumeration value="repeat"/>
+      <xsd:enumeration value="border"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

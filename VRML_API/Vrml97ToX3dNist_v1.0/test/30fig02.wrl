@@ -1,0 +1,105 @@
+#VRML V2.0 utf8
+# The VRML 2.0 Sourcebook
+# Copyright (c) 1997
+# Andrea L. Ames, David R. Nadeau, and John L. Moreland
+Group {
+    children [
+    # Bindable Backgrounds (cyan, red, blue)
+        DEF Back1 Background {
+            skyColor    [ 0.0 0.2 0.7,  0.0 0.5 1.0,  1.0 1.0 1.0 ]
+            skyAngle    [ 1.309, 1.571 ]
+            groundColor [ 0.1 0.1 0.0,  0.4 0.25 0.2,  0.6 0.6 0.6 ]
+            groundAngle [ 1.309, 1.571 ]
+        },
+        DEF Back2 Background {
+            skyColor    [ 1.0 0.0 0.0,  1.0 0.4 0.0,  1.0 1.0 0.0 ]
+            skyAngle    [ 1.309, 1.571 ]
+            groundColor [ 0.1 0.1 0.0,  0.5 0.25 0.2,  0.6 0.6 0.2 ]
+            groundAngle [ 1.309, 1.571 ]
+        },
+        DEF Back3 Background {
+            skyColor    [ 1.0 0.0 0.8,  0.5 0.0 0.8,  0.0 0.0 0.8 ]
+            skyAngle    [ 1.309, 1.571 ]
+            groundColor [ 0.0 0.0 0.1,  0.0 0.1 0.3,  0.3 0.3 0.6 ]
+            groundAngle [ 1.309, 1.571 ]
+        },
+    # Shapes to act as buttons (cyan, red, blue)
+        Transform { translation -3.0 0.0 0.0
+            children [
+                Shape {
+                    appearance Appearance {
+                        material Material {
+                            diffuseColor 0.0 0.5 0.8
+                        }
+                    }
+                    geometry Box { }
+                },
+                DEF BackButton1 TouchSensor { }
+            ]
+        },
+        Group {
+            children [
+                Shape {
+                    appearance Appearance {
+                        material Material {
+                            diffuseColor 1.0 0.3 0.3
+                        }
+                    }
+                    geometry Sphere { }
+                },
+                DEF BackButton2 TouchSensor { }
+            ]
+        },
+        Transform { translation 3.0 0.0 0.0
+            children [
+                Shape {
+                    appearance Appearance {
+                        material Material {
+                            diffuseColor 0.2 0.2 0.8
+                        }
+                    }
+                    geometry Cone { }
+                },
+                DEF BackButton3 TouchSensor { }
+            ]
+        },
+    # Scripts
+        DEF Filter1 Script {
+            url "javascript:
+                function set_boolean( bool, eventTime ) {
+                    if ( bool == true ) { true_changed  = true; }
+                    else                { false_changed = true; }
+                }"
+            eventIn  SFBool set_boolean
+            eventOut SFBool true_changed
+            eventOut SFBool false_changed
+        },
+        DEF Filter2 Script {
+            url "javascript:
+                function set_boolean( bool, eventTime ) {
+                    if ( bool == true ) { true_changed  = true; }
+                    else                { false_changed = true; }
+                }"
+            eventIn  SFBool set_boolean
+            eventOut SFBool true_changed
+            eventOut SFBool false_changed
+        },
+        DEF Filter3 Script {
+            url "javascript:
+                function set_boolean( bool, eventTime ) {
+                    if ( bool == true ) { true_changed  = true; }
+                    else                { false_changed = true; }
+                }"
+            eventIn  SFBool set_boolean
+            eventOut SFBool true_changed
+            eventOut SFBool false_changed
+        },
+    ]
+}
+ROUTE BackButton1.isActive TO Filter1.set_boolean
+ROUTE BackButton2.isActive TO Filter2.set_boolean
+ROUTE BackButton3.isActive TO Filter3.set_boolean
+ROUTE Filter1.true_changed TO Back1.set_bind
+ROUTE Filter2.true_changed TO Back2.set_bind
+ROUTE Filter3.true_changed TO Back3.set_bind
+
